@@ -3,6 +3,7 @@ from django.test import TestCase
 from lists.views import home_page
 from django.http import HttpRequest
 from django.http import HttpResponse
+from django.template.loader import render_to_string
 
 class HomePageTest(TestCase):
 
@@ -11,9 +12,5 @@ class HomePageTest(TestCase):
         self.assertEqual(found.func, home_page)
 
     def test_home_page_returns_correct_html(self):
-        request = HttpRequest()
-        response = home_page(request)
-        html = response.content.decode('utf8')
-        self.assertTrue(html.startswith('<html>'))
-        self.assertIn('<title>To-Do lists</title>', html)
-        self.assertTrue(html.endswith('</html>'))
+        response = self.client.get('/')
+        self.assertTemplateUsed(response, 'home.html')

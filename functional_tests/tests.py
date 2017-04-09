@@ -58,7 +58,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.quit()
         self.browser = webdriver.Firefox()
         self.browser.get(self.live_server_url)
-        page_text = self.browser.find_element_by_tag_name('body'.text)
+        page_text = self.browser.find_element_by_tag_name('body').text
         self.assertNotIn('Buy peacock feathers', page_text)
         self.assertNotIn('make a fly', page_text)
         inputbox = self.browser.find_element_by_id('id_new_item')
@@ -69,6 +69,6 @@ class NewVisitorTest(LiveServerTestCase):
         francis_list_url = self.browser.current_url
         self.assertRegex(francis_list_url, '/lists/.+')
         self.assertNotEqual(francis_list_url, edith_list_url)
-        page_text = self.browser.find_element_by_id('body'.text)
+        page_text = self.browser.find_element_by_id('body').text
         assertIn(page_text, 'Buy milk')
         assertNotIn(page_text, 'Buy peacock feathers')
